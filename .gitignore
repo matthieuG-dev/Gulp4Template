@@ -1,6 +1,7 @@
 node_modules
+dist
 scr/fonts/*
 scr/img/*
 scr/js/*
 scr/scss/*
-dist
+src/index.html
