@@ -1,0 +1,6 @@
+node_modules
+scr/fonts/*
+scr/img/*
+scr/js/*
+scr/scss/*
+dist
