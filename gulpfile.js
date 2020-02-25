@@ -24,7 +24,11 @@ const files = {
 }
 
 function clean() {
-    return(['dist']);
+    return del(['dist'])
+}
+
+function cleanAssets() {
+    return del('dist/img')
 }
 
 function scssTask() {    
@@ -55,6 +59,7 @@ function cacheBustTask(){
 }
 
 function OptimizeImage() {
+    cleanAssets()
     return (
         src(files.imgPath)
         .pipe(imagemin())
@@ -81,7 +86,13 @@ function serve(done) {
     done();
 }
 
-function watchTask(){
+function wacthAssets() {
+    watch([files.imgPath],
+        OptimizeImage)
+    watchTask();
+}
+
+function watchTask() {
     watch(
         [files.scssPath, files.jsPath, files.htmlPath],
         parallel(scssTask, jsTask, copyHtml, reload)
@@ -89,6 +100,8 @@ function watchTask(){
 }
 
 exports.default = series(
+    clean,
     parallel(scssTask, jsTask, OptimizeImage, copyHtml, serve),
+    wacthAssets,
     watchTask);
 
